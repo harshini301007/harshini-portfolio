@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import watermarkImg from '../assets/watermark.png';
@@ -40,7 +40,18 @@ const navItems = [
   { name: 'CONTACT', href: '#contact' },
 ];
 
-export const HeroSection = () => {
+const socialLinks = [
+  {
+    name: 'GITHUB',
+    href: 'https://github.com/harshini301007',
+  },
+  {
+    name: 'LINKEDIN',
+    href: 'https://www.linkedin.com/in/harshini-poornachandran',
+  },
+];
+
+export const HeroSection: React.FC = () => {
   const [cursorPos, setCursorPos] = useState({
     x: -100,
     y: -100,
@@ -78,10 +89,10 @@ export const HeroSection = () => {
         cursor-none
       "
     >
-      {/* =========================================================
-          CUSTOM CURSOR
-      ========================================================= */}
 
+      {/* =========================================================
+          1. CUSTOM CURSOR
+      ========================================================= */}
       {cursorPos.x >= 0 && (
         <motion.div
           className="
@@ -96,7 +107,6 @@ export const HeroSection = () => {
             flex
             items-center
             justify-center
-            backdrop-blur-[1px]
           "
           animate={{
             x: cursorPos.x - (isHovered ? 24 : 5),
@@ -117,103 +127,273 @@ export const HeroSection = () => {
       )}
 
       {/* =========================================================
-          CINEMATIC AI-TECH BACKGROUND
+          2. CINEMATIC AI / TECH BACKGROUND
       ========================================================= */}
-
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-black">
 
-        {/* Main subtle grid */}
+        {/* Main radial glow */}
+        <div
+          className="
+            absolute
+            top-1/2
+            right-[8%]
+            -translate-y-1/2
+            w-[520px]
+            h-[520px]
+            rounded-full
+            bg-[#D4AF37]/[0.025]
+            blur-[100px]
+          "
+        />
+
+        {/* Secondary glow */}
+        <div
+          className="
+            absolute
+            top-[15%]
+            left-[45%]
+            w-[260px]
+            h-[260px]
+            rounded-full
+            bg-[#C99E5D]/[0.018]
+            blur-[90px]
+          "
+        />
+
+        {/* =====================================================
+            TECH GRID
+        ===================================================== */}
         <div
           className="
             absolute
             inset-0
             opacity-[0.10]
-            bg-[linear-gradient(rgba(212,175,55,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.18)_1px,transparent_1px)]
-            bg-[size:80px_80px]
           "
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(212,175,55,0.08) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,175,55,0.08) 1px, transparent 1px)
+            `,
+            backgroundSize: '90px 90px',
+          }}
         />
 
-        {/* Radial cinematic glow */}
+        {/* Fine radial grid */}
         <div
           className="
             absolute
+            inset-0
+            opacity-[0.08]
+          "
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)
+            `,
+            backgroundSize: '30px 30px',
+          }}
+        />
+
+        {/* =====================================================
+            ROTATING TECH ORBIT
+        ===================================================== */}
+        <motion.div
+          className="
+            absolute
+            right-[7%]
             top-1/2
-            left-1/2
-            -translate-x-1/2
             -translate-y-1/2
-            w-[55rem]
-            h-[55rem]
+            w-[430px]
+            h-[430px]
             rounded-full
-            bg-[#D4AF37]/[0.045]
-            blur-[160px]
+            border
+            border-[#D4AF37]/10
           "
-        />
+          animate={{
+            rotate: 360,
+          }}
+          transition={{
+            duration: 35,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        >
+          <div
+            className="
+              absolute
+              top-1/2
+              -translate-y-1/2
+              -left-1
+              w-2
+              h-2
+              rounded-full
+              bg-[#D4AF37]
+              shadow-[0_0_15px_#D4AF37]
+            "
+          />
+        </motion.div>
 
-        {/* Left warm glow */}
-        <div
+        <motion.div
           className="
             absolute
-            left-[-15rem]
-            top-[15%]
-            w-[35rem]
-            h-[35rem]
+            right-[11%]
+            top-1/2
+            -translate-y-1/2
+            w-[320px]
+            h-[320px]
             rounded-full
-            bg-[#8C6D4F]/[0.08]
-            blur-[130px]
+            border
+            border-[#C99E5D]/10
           "
-        />
+          animate={{
+            rotate: -360,
+          }}
+          transition={{
+            duration: 26,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        >
+          <div
+            className="
+              absolute
+              top-1/2
+              -translate-y-1/2
+              -left-1
+              w-1.5
+              h-1.5
+              rounded-full
+              bg-[#C99E5D]
+              shadow-[0_0_12px_#C99E5D]
+            "
+          />
+        </motion.div>
 
-        {/* Right warm glow */}
-        <div
+        {/* =====================================================
+            FLOATING PARTICLES
+        ===================================================== */}
+        <motion.div
           className="
             absolute
-            right-[-15rem]
-            bottom-[-10rem]
-            w-[40rem]
-            h-[40rem]
+            top-[25%]
+            right-[17%]
+            w-1.5
+            h-1.5
             rounded-full
-            bg-[#D4AF37]/[0.05]
-            blur-[150px]
+            bg-[#F7E7C4]
+            shadow-[0_0_12px_#F7E7C4]
           "
+          animate={{
+            y: [-8, 8, -8],
+            opacity: [0.35, 1, 0.35],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
         />
 
-        {/* Vertical cinematic light */}
-        <div
+        <motion.div
           className="
             absolute
-            right-[18%]
-            top-0
-            h-full
-            w-px
-            bg-gradient-to-b
+            top-[38%]
+            right-[24%]
+            w-1
+            h-1
+            rounded-full
+            bg-[#D4AF37]
+            shadow-[0_0_10px_#D4AF37]
+          "
+          animate={{
+            y: [5, -8, 5],
+            opacity: [0.2, 0.9, 0.2],
+          }}
+          transition={{
+            duration: 3.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        <motion.div
+          className="
+            absolute
+            bottom-[30%]
+            right-[28%]
+            w-1
+            h-1
+            rounded-full
+            bg-[#C99E5D]
+            shadow-[0_0_10px_#C99E5D]
+          "
+          animate={{
+            y: [-5, 10, -5],
+            opacity: [0.25, 0.8, 0.25],
+          }}
+          transition={{
+            duration: 4.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        {/* =====================================================
+            SCAN LINE
+        ===================================================== */}
+        <motion.div
+          className="
+            absolute
+            left-0
+            right-0
+            h-px
+            bg-gradient-to-r
             from-transparent
-            via-[#D4AF37]/20
+            via-[#D4AF37]/10
+            to-transparent
+          "
+          animate={{
+            top: ['20%', '80%', '20%'],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        {/* Left cinematic fade */}
+        <div
+          className="
+            absolute
+            inset-y-0
+            left-0
+            w-[55%]
+            bg-gradient-to-r
+            from-black
+            via-black/95
             to-transparent
           "
         />
 
-        {/* Tech particles */}
-        <div className="absolute top-[18%] right-[28%] w-1 h-1 rounded-full bg-[#D4AF37] shadow-[0_0_12px_#D4AF37]" />
-        <div className="absolute top-[31%] right-[15%] w-1 h-1 rounded-full bg-[#D4AF37]/70 shadow-[0_0_10px_#D4AF37]" />
-        <div className="absolute bottom-[30%] right-[23%] w-1 h-1 rounded-full bg-[#D4AF37]/60 shadow-[0_0_10px_#D4AF37]" />
-        <div className="absolute bottom-[18%] left-[55%] w-1 h-1 rounded-full bg-[#C99E5D]/60 shadow-[0_0_10px_#C99E5D]" />
+        {/* Bottom cinematic fade */}
+        <div
+          className="
+            absolute
+            bottom-0
+            left-0
+            right-0
+            h-32
+            bg-gradient-to-t
+            from-black
+            to-transparent
+          "
+        />
 
-        {/* Faint circuit lines */}
-        <div className="absolute top-[25%] right-[10%] w-28 h-px bg-gradient-to-r from-transparent to-[#D4AF37]/20" />
-        <div className="absolute top-[25%] right-[10%] h-20 w-px bg-gradient-to-b from-[#D4AF37]/20 to-transparent" />
-
-        <div className="absolute bottom-[28%] right-[16%] w-36 h-px bg-gradient-to-r from-transparent to-[#D4AF37]/15" />
-        <div className="absolute bottom-[28%] right-[16%] h-16 w-px bg-gradient-to-b from-[#D4AF37]/15 to-transparent" />
-
-        {/* Dark cinematic overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/55" />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
-
-        {/* =========================================================
+        {/* =====================================================
             WATERMARK
-        ========================================================= */}
-
+        ===================================================== */}
         <div
           className="
             absolute
@@ -221,7 +401,6 @@ export const HeroSection = () => {
             right-6
             lg:bottom-10
             lg:right-12
-            pointer-events-none
             flex
             items-center
             justify-center
@@ -251,11 +430,16 @@ export const HeroSection = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative flex items-center justify-center"
+              className="
+                relative
+                flex
+                items-center
+                justify-center
+              "
             >
               <img
                 src={watermarkImg}
-                alt="Harshini insignia"
+                alt="Insignia"
                 className="
                   w-28
                   h-28
@@ -266,14 +450,14 @@ export const HeroSection = () => {
                 "
               />
             </motion.div>
+
           </div>
         </div>
       </div>
 
       {/* =========================================================
-          CONTENT LAYER
+          3. CONTENT LAYER
       ========================================================= */}
-
       <div
         className="
           relative
@@ -292,24 +476,22 @@ export const HeroSection = () => {
         "
       >
 
-        {/* =========================================================
+        {/* =====================================================
             NAVIGATION
-        ========================================================= */}
-
+        ===================================================== */}
         <header
           className="
             relative
-            grid
-            grid-cols-[auto_1fr_auto]
+            flex
             items-center
+            justify-between
             w-full
             pointer-events-auto
-            gap-4
+            gap-6
           "
         >
 
           {/* LOGO */}
-
           <a
             href="#"
             onMouseEnter={() => setIsHovered(true)}
@@ -321,9 +503,10 @@ export const HeroSection = () => {
               tracking-[0.35em]
               uppercase
               text-[#EAD8C7]
-              hover:opacity-75
-              transition-opacity
+              hover:text-[#FFF5EB]
+              transition-colors
               whitespace-nowrap
+              shrink-0
             "
             style={{
               fontFamily: "'Montserrat', sans-serif",
@@ -332,14 +515,9 @@ export const HeroSection = () => {
             HARSHINI P.
           </a>
 
-          {/* =====================================================
+          {/* =================================================
               CENTER NAVIGATION
-
-              IMPORTANT:
-              ONLY MAIN NAV ITEMS ARE HERE.
-              GITHUB + LINKEDIN ARE NOT HERE.
-          ===================================================== */}
-
+          ================================================= */}
           <nav
             className="
               hidden
@@ -348,22 +526,15 @@ export const HeroSection = () => {
               justify-center
               gap-5
               xl:gap-7
-              text-[10px]
-              xl:text-[11px]
-              tracking-[0.20em]
-              xl:tracking-[0.24em]
-              font-light
-              uppercase
-              text-[#C4B5A5]
-              absolute
-              left-1/2
-              -translate-x-1/2
-              whitespace-nowrap
+              flex-1
+              min-w-0
             "
             style={{
               fontFamily: "'Montserrat', sans-serif",
             }}
           >
+
+            {/* Main Links */}
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -374,9 +545,17 @@ export const HeroSection = () => {
                   relative
                   group
                   py-1
+                  text-[9px]
+                  xl:text-[10px]
+                  tracking-[0.20em]
+                  xl:tracking-[0.24em]
+                  font-light
+                  uppercase
+                  text-[#C4B5A5]
+                  hover:text-[#FFF5EB]
                   transition-colors
                   duration-300
-                  hover:text-[#FFF5EB]
+                  whitespace-nowrap
                 "
               >
                 {item.name}
@@ -387,8 +566,8 @@ export const HeroSection = () => {
                     bottom-0
                     left-0
                     w-0
-                    h-[1px]
-                    bg-[#D4AF37]/50
+                    h-px
+                    bg-[#D4AF37]
                     transition-all
                     duration-300
                     group-hover:w-full
@@ -396,28 +575,21 @@ export const HeroSection = () => {
                 />
               </a>
             ))}
-          </nav>
 
-          {/* =====================================================
-              RIGHT ACTIONS
+            {/* Divider */}
+            <span
+              className="
+                w-px
+                h-4
+                bg-[#8C6D4F]/50
+                shrink-0
+                mx-1
+              "
+            />
 
-              GITHUB + LINKEDIN + LET'S TALK
-              ARE ONLY HERE.
-          ===================================================== */}
-
-          <div
-            className="
-              flex
-              items-center
-              justify-end
-              gap-2
-              lg:gap-2
-              xl:gap-2
-            "
-          >
-
-            {/* GITHUB */}
-
+            {/* =================================================
+                GITHUB
+            ================================================= */}
             <a
               href="https://github.com/harshini301007"
               target="_blank"
@@ -425,35 +597,44 @@ export const HeroSection = () => {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               className="
-                hidden
-                xl:flex
-                items-center
-                space-x-1.5
+                relative
+                group
+                py-1
                 text-[9px]
-                tracking-[0.16em]
-                font-light
+                xl:text-[10px]
+                tracking-[0.18em]
+                xl:tracking-[0.20em]
+                font-medium
                 uppercase
-                py-2
-                px-2.5
-                border
-                border-[#8C6D4F]/40
-                hover:border-[#D4AF37]
                 text-[#C4B5A5]
                 hover:text-[#F7E7C4]
-                transition-all
+                transition-colors
                 duration-300
                 whitespace-nowrap
+                shrink-0
               "
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-              }}
             >
-              <span>GITHUB</span>
-              <span>↗</span>
+              GITHUB
+              <span className="ml-1 text-[#D4AF37]">↗</span>
+
+              <span
+                className="
+                  absolute
+                  bottom-0
+                  left-0
+                  w-0
+                  h-px
+                  bg-[#D4AF37]
+                  transition-all
+                  duration-300
+                  group-hover:w-full
+                "
+              />
             </a>
 
-            {/* LINKEDIN */}
-
+            {/* =================================================
+                LINKEDIN
+            ================================================= */}
             <a
               href="https://www.linkedin.com/in/harshini-poornachandran"
               target="_blank"
@@ -461,89 +642,121 @@ export const HeroSection = () => {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               className="
-                hidden
-                xl:flex
-                items-center
-                space-x-1.5
+                relative
+                group
+                py-1
                 text-[9px]
-                tracking-[0.16em]
-                font-light
+                xl:text-[10px]
+                tracking-[0.18em]
+                xl:tracking-[0.20em]
+                font-medium
                 uppercase
-                py-2
-                px-2.5
-                border
-                border-[#8C6D4F]/40
-                hover:border-[#D4AF37]
                 text-[#C4B5A5]
                 hover:text-[#F7E7C4]
-                transition-all
+                transition-colors
                 duration-300
                 whitespace-nowrap
+                shrink-0
               "
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-              }}
             >
-              <span>LINKEDIN</span>
-              <span>↗</span>
-            </a>
-
-            {/* LET'S TALK */}
-
-            <a
-              href="#contact"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="
-                group
-                flex
-                items-center
-                space-x-2
-                text-[10px]
-                lg:text-[11px]
-                tracking-[0.20em]
-                lg:tracking-[0.24em]
-                font-light
-                uppercase
-                py-2
-                px-3
-                lg:px-4
-                border
-                border-[#8C6D4F]/50
-                hover:border-[#D4AF37]
-                text-[#EAD8C7]
-                transition-all
-                duration-300
-                backdrop-blur-sm
-                whitespace-nowrap
-              "
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-              }}
-            >
-              <span>LET&apos;S TALK</span>
+              LINKEDIN
+              <span className="ml-1 text-[#D4AF37]">↗</span>
 
               <span
                 className="
-                  transform
-                  transition-transform
+                  absolute
+                  bottom-0
+                  left-0
+                  w-0
+                  h-px
+                  bg-[#D4AF37]
+                  transition-all
                   duration-300
-                  group-hover:translate-x-0.5
-                  group-hover:-translate-y-0.5
-                  text-xs
+                  group-hover:w-full
                 "
-              >
-                ↗
-              </span>
+              />
             </a>
+          </nav>
 
-          </div>
+          {/* Social Links */}
+<div className="hidden lg:flex items-center gap-3 ml-2">
+  {socialLinks.map((social) => (
+    <a
+      key={social.name}
+      href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative px-4 py-2 border border-[#8C6D4F]/30 hover:border-[#D4AF37]/70 transition-all duration-300"
+      aria-label={social.name}
+    >
+      <span
+        className="text-[10px] tracking-[0.18em] text-[#A8988B] group-hover:text-[#F7E7C4] transition-colors"
+        style={{ fontFamily: "'Montserrat', sans-serif" }}
+      >
+        {social.name} ↗
+      </span>
+
+      <span className="absolute inset-0 bg-[#D4AF37]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </a>
+  ))}
+</div>
+
+          {/* =================================================
+              LET'S TALK
+          ================================================= */}
+          <a
+            href="#contact"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="
+              group
+              flex
+              items-center
+              gap-2
+              text-[9px]
+              lg:text-[10px]
+              tracking-[0.18em]
+              lg:tracking-[0.22em]
+              font-light
+              uppercase
+              py-2
+              px-3
+              lg:px-4
+              border
+              border-[#8C6D4F]/50
+              hover:border-[#D4AF37]
+              text-[#EAD8C7]
+              hover:text-[#FFF5EB]
+              transition-all
+              duration-300
+              backdrop-blur-sm
+              whitespace-nowrap
+              shrink-0
+            "
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+            }}
+          >
+            <span>LET&apos;S TALK</span>
+
+            <span
+              className="
+                text-xs
+                transition-transform
+                duration-300
+                group-hover:translate-x-0.5
+                group-hover:-translate-y-0.5
+              "
+            >
+              ↗
+            </span>
+          </a>
+
         </header>
 
-        {/* =========================================================
+        {/* =====================================================
             MAIN HERO CONTENT
-        ========================================================= */}
-
+        ===================================================== */}
         <div
           className="
             relative
@@ -559,10 +772,9 @@ export const HeroSection = () => {
           "
         >
 
-          {/* =====================================================
+          {/* =================================================
               LEFT CONTENT
-          ===================================================== */}
-
+          ================================================= */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -579,10 +791,13 @@ export const HeroSection = () => {
           >
 
             {/* HEADLINE */}
-
             <motion.div
               variants={fadeUpVariants}
-              className="relative mb-3.5 select-none"
+              className="
+                relative
+                mb-3.5
+                select-none
+              "
             >
               <h1
                 className="
@@ -649,7 +864,6 @@ export const HeroSection = () => {
             </motion.div>
 
             {/* SUBTITLE */}
-
             <motion.div
               variants={fadeUpVariants}
               className="mb-4"
@@ -669,19 +883,14 @@ export const HeroSection = () => {
                 }}
               >
                 AI & FULL STACK DEVELOPER
-                <span className="text-[#8C6D4F] mx-1">
-                  •
-                </span>
+                <span className="text-[#8C6D4F] mx-1">•</span>
                 WEB DEVELOPER
-                <span className="text-[#8C6D4F] mx-1">
-                  •
-                </span>
+                <span className="text-[#8C6D4F] mx-1">•</span>
                 PROBLEM SOLVER
               </p>
             </motion.div>
 
             {/* DESCRIPTION */}
-
             <motion.div
               variants={fadeUpVariants}
               className="
@@ -709,7 +918,6 @@ export const HeroSection = () => {
             </motion.div>
 
             {/* CTA BUTTONS */}
-
             <motion.div
               variants={fadeUpVariants}
               className="
@@ -724,8 +932,7 @@ export const HeroSection = () => {
               }}
             >
 
-              {/* EXPLORE WORK */}
-
+              {/* EXPLORE */}
               <motion.a
                 href="#work"
                 onMouseEnter={() => setIsHovered(true)}
@@ -762,7 +969,7 @@ export const HeroSection = () => {
                     top-0
                     left-0
                     w-full
-                    h-[1px]
+                    h-px
                     bg-gradient-to-r
                     from-transparent
                     via-[#E8D7C5]/40
@@ -771,26 +978,11 @@ export const HeroSection = () => {
                   "
                 />
 
-                <span>
-                  EXPLORE MY WORK
-                </span>
-
-                <span
-                  className="
-                    transform
-                    transition-transform
-                    duration-300
-                    group-hover:translate-x-0.5
-                    group-hover:-translate-y-0.5
-                    text-xs
-                  "
-                >
-                  ↗
-                </span>
+                <span>EXPLORE MY WORK</span>
+                <span>↗</span>
               </motion.a>
 
               {/* RESUME */}
-
               <motion.a
                 href="/resume.pdf"
                 target="_blank"
@@ -821,31 +1013,16 @@ export const HeroSection = () => {
                   duration-300
                 "
               >
-                <span>
-                  DOWNLOAD RESUME
-                </span>
-
-                <span
-                  className="
-                    transform
-                    transition-transform
-                    duration-300
-                    group-hover:translate-y-0.5
-                    text-xs
-                  "
-                >
-                  ↓
-                </span>
+                <span>DOWNLOAD RESUME</span>
+                <span>↓</span>
               </motion.a>
 
             </motion.div>
-
           </motion.div>
 
-          {/* =====================================================
+          {/* =================================================
               RIGHT QUOTE
-          ===================================================== */}
-
+          ================================================= */}
           <motion.div
             initial={{
               opacity: 0,
@@ -907,7 +1084,7 @@ export const HeroSection = () => {
             <div
               className="
                 w-28
-                h-[1px]
+                h-px
                 bg-gradient-to-r
                 from-[#D4AF37]
                 via-[#E8D7C5]/70
@@ -923,7 +1100,6 @@ export const HeroSection = () => {
                 text-[#D8AB64]
                 font-normal
                 leading-none
-                -ml-0.5
               "
               style={{
                 fontFamily:
@@ -937,8 +1113,6 @@ export const HeroSection = () => {
           </motion.div>
 
         </div>
-
-        {/* BOTTOM SPACER */}
 
         <div className="h-2" />
 
