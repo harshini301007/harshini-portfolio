@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import watermarkImg from '../assets/watermark.png';
@@ -40,18 +40,7 @@ const navItems = [
   { name: 'CONTACT', href: '#contact' },
 ];
 
-const socialLinks = [
-  {
-    name: 'GITHUB',
-    href: 'https://github.com/harshini301007',
-  },
-  {
-    name: 'LINKEDIN',
-    href: 'https://www.linkedin.com/in/harshini-poornachandran',
-  },
-];
-
-export const HeroSection: React.FC = () => {
+export const HeroSection = () => {
   const [cursorPos, setCursorPos] = useState({
     x: -100,
     y: -100,
@@ -79,7 +68,7 @@ export const HeroSection: React.FC = () => {
       className="
         relative
         w-screen
-        min-h-screen
+        h-screen
         overflow-hidden
         bg-black
         text-[#E8DFD8]
@@ -89,9 +78,8 @@ export const HeroSection: React.FC = () => {
         cursor-none
       "
     >
-
       {/* =========================================================
-          1. CUSTOM CURSOR
+          CUSTOM CURSOR
       ========================================================= */}
 
       {cursorPos.x >= 0 && (
@@ -101,13 +89,14 @@ export const HeroSection: React.FC = () => {
             top-0
             left-0
             pointer-events-none
-            z-[100]
+            z-50
             rounded-full
             border
             border-[#D4AF37]/40
             flex
             items-center
             justify-center
+            backdrop-blur-[1px]
           "
           animate={{
             x: cursorPos.x - (isHovered ? 24 : 5),
@@ -115,8 +104,8 @@ export const HeroSection: React.FC = () => {
             width: isHovered ? 48 : 10,
             height: isHovered ? 48 : 10,
             backgroundColor: isHovered
-              ? 'rgba(212,175,55,0.1)'
-              : 'rgba(235,215,195,0.95)',
+              ? 'rgba(212, 175, 55, 0.1)'
+              : 'rgba(235, 215, 195, 0.95)',
           }}
           transition={{
             type: 'spring',
@@ -128,37 +117,63 @@ export const HeroSection: React.FC = () => {
       )}
 
       {/* =========================================================
-          2. CINEMATIC AI / TECH BACKGROUND
+          CINEMATIC AI-TECH BACKGROUND
       ========================================================= */}
 
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-black">
 
-        {/* Main atmospheric glow */}
+        {/* Main subtle grid */}
         <div
           className="
             absolute
             inset-0
-            bg-[radial-gradient(circle_at_75%_45%,rgba(212,175,55,0.12),transparent_35%)]
-          "
-        />
-
-        {/* Secondary warm glow */}
-        <div
-          className="
-            absolute
-            inset-0
-            bg-[radial-gradient(circle_at_90%_20%,rgba(201,158,93,0.08),transparent_28%)]
-          "
-        />
-
-        {/* Cinematic grid */}
-        <div
-          className="
-            absolute
-            inset-0
-            opacity-[0.12]
+            opacity-[0.10]
             bg-[linear-gradient(rgba(212,175,55,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.18)_1px,transparent_1px)]
             bg-[size:80px_80px]
+          "
+        />
+
+        {/* Radial cinematic glow */}
+        <div
+          className="
+            absolute
+            top-1/2
+            left-1/2
+            -translate-x-1/2
+            -translate-y-1/2
+            w-[55rem]
+            h-[55rem]
+            rounded-full
+            bg-[#D4AF37]/[0.045]
+            blur-[160px]
+          "
+        />
+
+        {/* Left warm glow */}
+        <div
+          className="
+            absolute
+            left-[-15rem]
+            top-[15%]
+            w-[35rem]
+            h-[35rem]
+            rounded-full
+            bg-[#8C6D4F]/[0.08]
+            blur-[130px]
+          "
+        />
+
+        {/* Right warm glow */}
+        <div
+          className="
+            absolute
+            right-[-15rem]
+            bottom-[-10rem]
+            w-[40rem]
+            h-[40rem]
+            rounded-full
+            bg-[#D4AF37]/[0.05]
+            blur-[150px]
           "
         />
 
@@ -166,112 +181,39 @@ export const HeroSection: React.FC = () => {
         <div
           className="
             absolute
-            top-0
             right-[18%]
-            w-px
+            top-0
             h-full
+            w-px
             bg-gradient-to-b
             from-transparent
-            via-[#D4AF37]/30
+            via-[#D4AF37]/20
             to-transparent
           "
         />
 
-        {/* Horizontal light */}
-        <div
-          className="
-            absolute
-            top-[45%]
-            right-0
-            w-[55%]
-            h-px
-            bg-gradient-to-l
-            from-[#D4AF37]/30
-            via-[#C99E5D]/10
-            to-transparent
-          "
-        />
+        {/* Tech particles */}
+        <div className="absolute top-[18%] right-[28%] w-1 h-1 rounded-full bg-[#D4AF37] shadow-[0_0_12px_#D4AF37]" />
+        <div className="absolute top-[31%] right-[15%] w-1 h-1 rounded-full bg-[#D4AF37]/70 shadow-[0_0_10px_#D4AF37]" />
+        <div className="absolute bottom-[30%] right-[23%] w-1 h-1 rounded-full bg-[#D4AF37]/60 shadow-[0_0_10px_#D4AF37]" />
+        <div className="absolute bottom-[18%] left-[55%] w-1 h-1 rounded-full bg-[#C99E5D]/60 shadow-[0_0_10px_#C99E5D]" />
 
-        {/* AI nodes */}
-        <div className="absolute top-[24%] right-[23%] w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_18px_#D4AF37]" />
-        <div className="absolute top-[35%] right-[12%] w-1 h-1 rounded-full bg-[#C99E5D] shadow-[0_0_14px_#C99E5D]" />
-        <div className="absolute top-[62%] right-[27%] w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_18px_#D4AF37]" />
-        <div className="absolute top-[72%] right-[10%] w-1 h-1 rounded-full bg-[#C99E5D] shadow-[0_0_14px_#C99E5D]" />
+        {/* Faint circuit lines */}
+        <div className="absolute top-[25%] right-[10%] w-28 h-px bg-gradient-to-r from-transparent to-[#D4AF37]/20" />
+        <div className="absolute top-[25%] right-[10%] h-20 w-px bg-gradient-to-b from-[#D4AF37]/20 to-transparent" />
 
-        {/* Tech circuit lines */}
-        <div className="absolute right-[22%] top-[24%] w-[150px] h-px bg-gradient-to-r from-[#D4AF37]/50 to-transparent" />
-        <div className="absolute right-[12%] top-[35%] w-[180px] h-px bg-gradient-to-r from-[#D4AF37]/30 to-transparent" />
-        <div className="absolute right-[27%] top-[62%] w-[120px] h-px bg-gradient-to-r from-[#D4AF37]/40 to-transparent" />
+        <div className="absolute bottom-[28%] right-[16%] w-36 h-px bg-gradient-to-r from-transparent to-[#D4AF37]/15" />
+        <div className="absolute bottom-[28%] right-[16%] h-16 w-px bg-gradient-to-b from-[#D4AF37]/15 to-transparent" />
 
-        {/* Large futuristic rings */}
-        <motion.div
-          animate={{
-            rotate: 360,
-          }}
-          transition={{
-            duration: 35,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="
-            absolute
-            right-[5%]
-            top-[18%]
-            w-[420px]
-            h-[420px]
-            rounded-full
-            border
-            border-[#D4AF37]/10
-          "
-        />
+        {/* Dark cinematic overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/55" />
 
-        <motion.div
-          animate={{
-            rotate: -360,
-          }}
-          transition={{
-            duration: 45,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="
-            absolute
-            right-[10%]
-            top-[23%]
-            w-[320px]
-            h-[320px]
-            rounded-full
-            border
-            border-[#C99E5D]/10
-          "
-        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
 
-        {/* Dark cinematic gradient */}
-        <div
-          className="
-            absolute
-            inset-0
-            bg-gradient-to-r
-            from-black
-            via-black/85
-            to-black/25
-          "
-        />
+        {/* =========================================================
+            WATERMARK
+        ========================================================= */}
 
-        {/* Bottom vignette */}
-        <div
-          className="
-            absolute
-            inset-x-0
-            bottom-0
-            h-1/3
-            bg-gradient-to-t
-            from-black
-            to-transparent
-          "
-        />
-
-        {/* Watermark */}
         <div
           className="
             absolute
@@ -309,12 +251,7 @@ export const HeroSection: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="
-                relative
-                flex
-                items-center
-                justify-center
-              "
+              className="relative flex items-center justify-center"
             >
               <img
                 src={watermarkImg}
@@ -334,7 +271,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* =========================================================
-          3. MAIN CONTENT
+          CONTENT LAYER
       ========================================================= */}
 
       <div
@@ -344,29 +281,30 @@ export const HeroSection: React.FC = () => {
           flex
           flex-col
           justify-between
-          min-h-screen
+          h-full
           w-full
           px-6
           sm:px-12
           lg:px-16
           pt-6
           pb-8
+          pointer-events-none
         "
       >
 
-        {/* =====================================================
+        {/* =========================================================
             NAVIGATION
-        ===================================================== */}
+        ========================================================= */}
 
         <header
           className="
             relative
-            flex
+            grid
+            grid-cols-[auto_1fr_auto]
             items-center
-            justify-between
             w-full
-            gap-6
             pointer-events-auto
+            gap-4
           "
         >
 
@@ -377,15 +315,14 @@ export const HeroSection: React.FC = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className="
-              shrink-0
               text-xs
               sm:text-sm
               font-semibold
               tracking-[0.35em]
               uppercase
               text-[#EAD8C7]
-              hover:text-white
-              transition-colors
+              hover:opacity-75
+              transition-opacity
               whitespace-nowrap
             "
             style={{
@@ -395,25 +332,33 @@ export const HeroSection: React.FC = () => {
             HARSHINI P.
           </a>
 
-
-          {/* =================================================
+          {/* =====================================================
               CENTER NAVIGATION
 
               IMPORTANT:
-              GitHub + LinkedIn are NOT here anymore.
-              This fixes the overlap.
-          ================================================= */}
+              ONLY MAIN NAV ITEMS ARE HERE.
+              GITHUB + LINKEDIN ARE NOT HERE.
+          ===================================================== */}
 
           <nav
             className="
               hidden
               lg:flex
+              items-center
+              justify-center
+              gap-5
+              xl:gap-7
+              text-[10px]
+              xl:text-[11px]
+              tracking-[0.20em]
+              xl:tracking-[0.24em]
+              font-light
+              uppercase
+              text-[#C4B5A5]
               absolute
               left-1/2
               -translate-x-1/2
-              items-center
-              gap-5
-              xl:gap-7
+              whitespace-nowrap
             "
             style={{
               fontFamily: "'Montserrat', sans-serif",
@@ -429,17 +374,9 @@ export const HeroSection: React.FC = () => {
                   relative
                   group
                   py-1
-                  text-[9px]
-                  xl:text-[10px]
-                  tracking-[0.20em]
-                  xl:tracking-[0.24em]
-                  font-light
-                  uppercase
-                  text-[#C4B5A5]
-                  hover:text-[#FFF5EB]
                   transition-colors
                   duration-300
-                  whitespace-nowrap
+                  hover:text-[#FFF5EB]
                 "
               >
                 {item.name}
@@ -450,8 +387,8 @@ export const HeroSection: React.FC = () => {
                     bottom-0
                     left-0
                     w-0
-                    h-px
-                    bg-[#D4AF37]
+                    h-[1px]
+                    bg-[#D4AF37]/50
                     transition-all
                     duration-300
                     group-hover:w-full
@@ -461,12 +398,12 @@ export const HeroSection: React.FC = () => {
             ))}
           </nav>
 
-
-          {/* =================================================
+          {/* =====================================================
               RIGHT ACTIONS
 
-              GitHub + LinkedIn appear ONLY HERE.
-          ================================================= */}
+              GITHUB + LINKEDIN + LET'S TALK
+              ARE ONLY HERE.
+          ===================================================== */}
 
           <div
             className="
@@ -474,14 +411,15 @@ export const HeroSection: React.FC = () => {
               items-center
               justify-end
               gap-2
-              shrink-0
+              lg:gap-2
+              xl:gap-2
             "
           >
 
-            {/* GitHub */}
+            {/* GITHUB */}
 
             <a
-              href={socialLinks[0].href}
+              href="https://github.com/harshini301007"
               target="_blank"
               rel="noopener noreferrer"
               onMouseEnter={() => setIsHovered(true)}
@@ -490,9 +428,9 @@ export const HeroSection: React.FC = () => {
                 hidden
                 xl:flex
                 items-center
-                gap-1.5
-                text-[8px]
-                tracking-[0.14em]
+                space-x-1.5
+                text-[9px]
+                tracking-[0.16em]
                 font-light
                 uppercase
                 py-2
@@ -514,11 +452,10 @@ export const HeroSection: React.FC = () => {
               <span>↗</span>
             </a>
 
-
-            {/* LinkedIn */}
+            {/* LINKEDIN */}
 
             <a
-              href={socialLinks[1].href}
+              href="https://www.linkedin.com/in/harshini-poornachandran"
               target="_blank"
               rel="noopener noreferrer"
               onMouseEnter={() => setIsHovered(true)}
@@ -527,9 +464,9 @@ export const HeroSection: React.FC = () => {
                 hidden
                 xl:flex
                 items-center
-                gap-1.5
-                text-[8px]
-                tracking-[0.14em]
+                space-x-1.5
+                text-[9px]
+                tracking-[0.16em]
                 font-light
                 uppercase
                 py-2
@@ -551,8 +488,7 @@ export const HeroSection: React.FC = () => {
               <span>↗</span>
             </a>
 
-
-            {/* Let's Talk */}
+            {/* LET'S TALK */}
 
             <a
               href="#contact"
@@ -562,11 +498,11 @@ export const HeroSection: React.FC = () => {
                 group
                 flex
                 items-center
-                gap-2
-                text-[9px]
-                lg:text-[10px]
-                tracking-[0.18em]
-                lg:tracking-[0.20em]
+                space-x-2
+                text-[10px]
+                lg:text-[11px]
+                tracking-[0.20em]
+                lg:tracking-[0.24em]
                 font-light
                 uppercase
                 py-2
@@ -576,7 +512,6 @@ export const HeroSection: React.FC = () => {
                 border-[#8C6D4F]/50
                 hover:border-[#D4AF37]
                 text-[#EAD8C7]
-                hover:text-[#FFF5EB]
                 transition-all
                 duration-300
                 backdrop-blur-sm
@@ -586,15 +521,16 @@ export const HeroSection: React.FC = () => {
                 fontFamily: "'Montserrat', sans-serif",
               }}
             >
-              <span>LET'S TALK</span>
+              <span>LET&apos;S TALK</span>
 
               <span
                 className="
-                  text-xs
+                  transform
                   transition-transform
                   duration-300
                   group-hover:translate-x-0.5
                   group-hover:-translate-y-0.5
+                  text-xs
                 "
               >
                 ↗
@@ -602,13 +538,11 @@ export const HeroSection: React.FC = () => {
             </a>
 
           </div>
-
         </header>
 
-
-        {/* =====================================================
-            HERO CONTENT
-        ===================================================== */}
+        {/* =========================================================
+            MAIN HERO CONTENT
+        ========================================================= */}
 
         <div
           className="
@@ -625,9 +559,9 @@ export const HeroSection: React.FC = () => {
           "
         >
 
-          {/* =================================================
+          {/* =====================================================
               LEFT CONTENT
-          ================================================= */}
+          ===================================================== */}
 
           <motion.div
             variants={containerVariants}
@@ -648,11 +582,7 @@ export const HeroSection: React.FC = () => {
 
             <motion.div
               variants={fadeUpVariants}
-              className="
-                relative
-                mb-3.5
-                select-none
-              "
+              className="relative mb-3.5 select-none"
             >
               <h1
                 className="
@@ -718,8 +648,7 @@ export const HeroSection: React.FC = () => {
               </h1>
             </motion.div>
 
-
-            {/* TECHNOLOGY LABEL */}
+            {/* SUBTITLE */}
 
             <motion.div
               variants={fadeUpVariants}
@@ -740,21 +669,16 @@ export const HeroSection: React.FC = () => {
                 }}
               >
                 AI & FULL STACK DEVELOPER
-
                 <span className="text-[#8C6D4F] mx-1">
                   •
                 </span>
-
                 WEB DEVELOPER
-
                 <span className="text-[#8C6D4F] mx-1">
                   •
                 </span>
-
                 PROBLEM SOLVER
               </p>
             </motion.div>
-
 
             {/* DESCRIPTION */}
 
@@ -784,7 +708,6 @@ export const HeroSection: React.FC = () => {
               </p>
             </motion.div>
 
-
             {/* CTA BUTTONS */}
 
             <motion.div
@@ -801,7 +724,7 @@ export const HeroSection: React.FC = () => {
               }}
             >
 
-              {/* Explore Work */}
+              {/* EXPLORE WORK */}
 
               <motion.a
                 href="#work"
@@ -814,7 +737,7 @@ export const HeroSection: React.FC = () => {
                   relative
                   inline-flex
                   items-center
-                  gap-3
+                  space-x-3
                   px-6
                   sm:px-7
                   py-3.5
@@ -839,11 +762,12 @@ export const HeroSection: React.FC = () => {
                     top-0
                     left-0
                     w-full
-                    h-px
+                    h-[1px]
                     bg-gradient-to-r
                     from-transparent
                     via-[#E8D7C5]/40
                     to-transparent
+                    pointer-events-none
                   "
                 />
 
@@ -851,13 +775,21 @@ export const HeroSection: React.FC = () => {
                   EXPLORE MY WORK
                 </span>
 
-                <span>
+                <span
+                  className="
+                    transform
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-0.5
+                    group-hover:-translate-y-0.5
+                    text-xs
+                  "
+                >
                   ↗
                 </span>
               </motion.a>
 
-
-              {/* Resume */}
+              {/* RESUME */}
 
               <motion.a
                 href="/resume.pdf"
@@ -872,7 +804,7 @@ export const HeroSection: React.FC = () => {
                   relative
                   inline-flex
                   items-center
-                  gap-2
+                  space-x-2
                   px-6
                   sm:px-7
                   py-3.5
@@ -893,7 +825,15 @@ export const HeroSection: React.FC = () => {
                   DOWNLOAD RESUME
                 </span>
 
-                <span>
+                <span
+                  className="
+                    transform
+                    transition-transform
+                    duration-300
+                    group-hover:translate-y-0.5
+                    text-xs
+                  "
+                >
                   ↓
                 </span>
               </motion.a>
@@ -902,10 +842,9 @@ export const HeroSection: React.FC = () => {
 
           </motion.div>
 
-
-          {/* =================================================
+          {/* =====================================================
               RIGHT QUOTE
-          ================================================= */}
+          ===================================================== */}
 
           <motion.div
             initial={{
@@ -961,19 +900,14 @@ export const HeroSection: React.FC = () => {
                 fontFamily: "'Montserrat', sans-serif",
               }}
             >
-              <p>
-                CODE WITH PURPOSE.
-              </p>
-
-              <p>
-                BUILD FOR IMPACT.
-              </p>
+              <p>CODE WITH PURPOSE.</p>
+              <p>BUILD FOR IMPACT.</p>
             </div>
 
             <div
               className="
                 w-28
-                h-px
+                h-[1px]
                 bg-gradient-to-r
                 from-[#D4AF37]
                 via-[#E8D7C5]/70
@@ -1004,10 +938,11 @@ export const HeroSection: React.FC = () => {
 
         </div>
 
+        {/* BOTTOM SPACER */}
+
         <div className="h-2" />
 
       </div>
-
     </section>
   );
 };
