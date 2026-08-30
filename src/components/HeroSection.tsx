@@ -1,35 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import watermarkImg from '../assets/watermark.png';
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const fadeUpVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 18,
-    filter: 'blur(6px)',
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 1.1,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 const navItems = [
   { name: 'HOME', href: '#' },
@@ -51,329 +26,429 @@ const socialLinks = [
   },
 ];
 
-export const HeroSection: React.FC = () => {
-  const [cursorPos, setCursorPos] = useState({
-    x: -100,
-    y: -100,
-  });
+/* =========================================================
+   ANIMATION VARIANTS
+========================================================= */
 
-  const [isHovered, setIsHovered] = useState(false);
+const containerVariants: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.14,
+      delayChildren: 0.15,
+    },
+  },
+};
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
+const fadeUpVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 22,
+    filter: 'blur(5px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.9,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
-    window.addEventListener('mousemove', handleMouseMove);
+const rightPanelVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    x: 25,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.1,
+      delay: 0.5,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+/* =========================================================
+   STATIC TECH PARTICLES
+   Avoid Math.random() during render for stable deployment.
+========================================================= */
 
+const particles = [
+  { left: '58%', top: '18%', size: 2, delay: 0, duration: 5 },
+  { left: '64%', top: '32%', size: 1, delay: 1, duration: 7 },
+  { left: '72%', top: '21%', size: 2, delay: 2, duration: 6 },
+  { left: '79%', top: '38%', size: 1, delay: 0.5, duration: 8 },
+  { left: '88%', top: '25%', size: 2, delay: 1.5, duration: 6 },
+  { left: '92%', top: '52%', size: 1, delay: 2.5, duration: 7 },
+  { left: '69%', top: '58%', size: 2, delay: 0.8, duration: 5 },
+  { left: '82%', top: '68%', size: 1, delay: 1.2, duration: 8 },
+  { left: '61%', top: '76%', size: 2, delay: 2, duration: 6 },
+  { left: '74%', top: '84%', size: 1, delay: 0.4, duration: 7 },
+  { left: '94%', top: '78%', size: 2, delay: 1.8, duration: 5 },
+  { left: '55%', top: '44%', size: 1, delay: 2.2, duration: 8 },
+];
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+export const HeroSection = () => {
   return (
     <section
+      id="home"
       className="
         relative
-        w-screen
-        h-screen
+        min-h-screen
+        w-full
         overflow-hidden
-        bg-black
+        bg-[#030302]
         text-[#E8DFD8]
-        font-sans
-        selection:bg-[#cbb59d]
+        selection:bg-[#D4AF37]
         selection:text-black
-        cursor-none
       "
     >
 
-      {/* =========================================================
-          1. CUSTOM CURSOR
-      ========================================================= */}
-      {cursorPos.x >= 0 && (
-        <motion.div
-          className="
-            fixed
-            top-0
-            left-0
-            pointer-events-none
-            z-50
-            rounded-full
-            border
-            border-[#D4AF37]/40
-            flex
-            items-center
-            justify-center
-          "
-          animate={{
-            x: cursorPos.x - (isHovered ? 24 : 5),
-            y: cursorPos.y - (isHovered ? 24 : 5),
-            width: isHovered ? 48 : 10,
-            height: isHovered ? 48 : 10,
-            backgroundColor: isHovered
-              ? 'rgba(212, 175, 55, 0.1)'
-              : 'rgba(235, 215, 195, 0.95)',
-          }}
-          transition={{
-            type: 'spring',
-            damping: 30,
-            stiffness: 350,
-            mass: 0.5,
-          }}
-        />
-      )}
+      {/* =====================================================
+          CINEMATIC AI / TECH BACKGROUND
+      ====================================================== */}
 
-      {/* =========================================================
-          2. CINEMATIC AI / TECH BACKGROUND
-      ========================================================= */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-black">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
 
-        {/* Main radial glow */}
-        <div
-          className="
-            absolute
-            top-1/2
-            right-[8%]
-            -translate-y-1/2
-            w-[520px]
-            h-[520px]
-            rounded-full
-            bg-[#D4AF37]/[0.025]
-            blur-[100px]
-          "
-        />
-
-        {/* Secondary glow */}
-        <div
-          className="
-            absolute
-            top-[15%]
-            left-[45%]
-            w-[260px]
-            h-[260px]
-            rounded-full
-            bg-[#C99E5D]/[0.018]
-            blur-[90px]
-          "
-        />
-
-        {/* =====================================================
-            TECH GRID
-        ===================================================== */}
+        {/* Base cinematic atmosphere */}
         <div
           className="
             absolute
             inset-0
-            opacity-[0.10]
+            bg-[radial-gradient(circle_at_75%_42%,rgba(212,175,55,0.10),transparent_25%),radial-gradient(circle_at_30%_70%,rgba(155,118,64,0.06),transparent_30%),linear-gradient(120deg,#020201,#090704_50%,#020202)]
+          "
+        />
+
+        {/* Large golden cinematic glow */}
+        <motion.div
+          animate={{
+            scale: [1, 1.08, 1],
+            opacity: [0.28, 0.48, 0.28],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className="
+            absolute
+            right-[5%]
+            top-[12%]
+            h-[34rem]
+            w-[34rem]
+            rounded-full
+            bg-[#D4AF37]/[0.045]
+            blur-[110px]
+          "
+        />
+
+        {/* Secondary bronze glow */}
+        <motion.div
+          animate={{
+            scale: [1.05, 0.95, 1.05],
+            opacity: [0.12, 0.25, 0.12],
+          }}
+          transition={{
+            duration: 11,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className="
+            absolute
+            right-[28%]
+            bottom-[5%]
+            h-[26rem]
+            w-[26rem]
+            rounded-full
+            bg-[#8C6D4F]/[0.07]
+            blur-[100px]
+          "
+        />
+
+        {/* Main technical grid */}
+        <div
+          className="
+            absolute
+            inset-0
+            opacity-[0.13]
+            [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_78%)]
           "
           style={{
             backgroundImage: `
-              linear-gradient(rgba(212,175,55,0.08) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(212,175,55,0.08) 1px, transparent 1px)
+              linear-gradient(rgba(212,175,55,0.11) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,175,55,0.11) 1px, transparent 1px)
             `,
-            backgroundSize: '90px 90px',
+            backgroundSize: '70px 70px',
           }}
         />
 
-        {/* Fine radial grid */}
+        {/* Fine AI data grid */}
         <div
           className="
             absolute
             inset-0
             opacity-[0.08]
+            [mask-image:radial-gradient(circle_at_78%_48%,black,transparent_55%)]
           "
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)
+              linear-gradient(rgba(232,223,216,0.06) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(232,223,216,0.06) 1px, transparent 1px)
             `,
-            backgroundSize: '30px 30px',
+            backgroundSize: '20px 20px',
           }}
         />
 
-        {/* =====================================================
-            ROTATING TECH ORBIT
-        ===================================================== */}
+        {/* Animated horizontal scan beam */}
         <motion.div
+          animate={{
+            x: ['-25%', '130%'],
+            opacity: [0, 0.45, 0],
+          }}
+          transition={{
+            duration: 11,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
           className="
             absolute
-            right-[7%]
-            top-1/2
-            -translate-y-1/2
-            w-[430px]
-            h-[430px]
+            left-0
+            top-[38%]
+            h-px
+            w-[30%]
+            bg-gradient-to-r
+            from-transparent
+            via-[#D4AF37]
+            to-transparent
+            blur-[1px]
+          "
+        />
+
+        {/* Second scan beam */}
+        <motion.div
+          animate={{
+            x: ['120%', '-30%'],
+            opacity: [0, 0.2, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'linear',
+            delay: 3,
+          }}
+          className="
+            absolute
+            left-0
+            top-[68%]
+            h-px
+            w-[22%]
+            bg-gradient-to-r
+            from-transparent
+            via-[#C99E5D]
+            to-transparent
+          "
+        />
+
+        {/* =================================================
+            LARGE TECH RINGS
+        ================================================== */}
+
+        <div
+          className="
+            absolute
+            right-[4%]
+            top-[18%]
+            h-[28rem]
+            w-[28rem]
             rounded-full
             border
-            border-[#D4AF37]/10
+            border-[#D4AF37]/[0.07]
           "
+        />
+
+        <motion.div
           animate={{
             rotate: 360,
           }}
           transition={{
-            duration: 35,
+            duration: 32,
             repeat: Infinity,
             ease: 'linear',
           }}
-        >
-          <div
-            className="
-              absolute
-              top-1/2
-              -translate-y-1/2
-              -left-1
-              w-2
-              h-2
-              rounded-full
-              bg-[#D4AF37]
-              shadow-[0_0_15px_#D4AF37]
-            "
-          />
-        </motion.div>
-
-        <motion.div
           className="
             absolute
-            right-[11%]
-            top-1/2
-            -translate-y-1/2
-            w-[320px]
-            h-[320px]
+            right-[9%]
+            top-[23%]
+            h-[22rem]
+            w-[22rem]
             rounded-full
             border
-            border-[#C99E5D]/10
+            border-dashed
+            border-[#C99E5D]/[0.13]
           "
+        />
+
+        <motion.div
           animate={{
             rotate: -360,
           }}
           transition={{
-            duration: 26,
+            duration: 45,
             repeat: Infinity,
             ease: 'linear',
           }}
-        >
-          <div
-            className="
-              absolute
-              top-1/2
-              -translate-y-1/2
-              -left-1
-              w-1.5
-              h-1.5
-              rounded-full
-              bg-[#C99E5D]
-              shadow-[0_0_12px_#C99E5D]
-            "
-          />
-        </motion.div>
-
-        {/* =====================================================
-            FLOATING PARTICLES
-        ===================================================== */}
-        <motion.div
           className="
             absolute
-            top-[25%]
-            right-[17%]
-            w-1.5
-            h-1.5
+            right-[15%]
+            top-[29%]
+            h-[15rem]
+            w-[15rem]
             rounded-full
-            bg-[#F7E7C4]
-            shadow-[0_0_12px_#F7E7C4]
+            border
+            border-[#E8D7C5]/[0.06]
           "
+        />
+
+        {/* Ring center */}
+        <motion.div
           animate={{
-            y: [-8, 8, -8],
-            opacity: [0.35, 1, 0.35],
+            scale: [0.95, 1.05, 0.95],
+            opacity: [0.2, 0.45, 0.2],
           }}
           transition={{
-            duration: 4,
+            duration: 5,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-        />
-
-        <motion.div
           className="
             absolute
-            top-[38%]
-            right-[24%]
-            w-1
-            h-1
+            right-[31%]
+            top-[43%]
+            h-2
+            w-2
             rounded-full
             bg-[#D4AF37]
-            shadow-[0_0_10px_#D4AF37]
+            shadow-[0_0_20px_#D4AF37]
           "
-          animate={{
-            y: [5, -8, 5],
-            opacity: [0.2, 0.9, 0.2],
-          }}
-          transition={{
-            duration: 3.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
         />
 
+        {/* =================================================
+            FLOATING AI PARTICLES
+        ================================================== */}
+
+        {particles.map((particle) => (
+          <motion.span
+            key={`${particle.left}-${particle.top}`}
+            animate={{
+              y: [-8, 8, -8],
+              opacity: [0.15, 0.75, 0.15],
+            }}
+            transition={{
+              duration: particle.duration,
+              delay: particle.delay,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className="
+              absolute
+              rounded-full
+              bg-[#D4AF37]
+              shadow-[0_0_12px_#D4AF37]
+            "
+            style={{
+              left: particle.left,
+              top: particle.top,
+              width: particle.size,
+              height: particle.size,
+            }}
+          />
+        ))}
+
+        {/* =================================================
+            TECH CORNER DETAILS
+        ================================================== */}
+
+        <div className="absolute right-10 top-28 h-20 w-20 border-r border-t border-[#D4AF37]/20" />
+
+        <div className="absolute bottom-16 left-8 h-16 w-16 border-b border-l border-[#D4AF37]/15" />
+
+        <div className="absolute left-[12%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent" />
+
+        <div className="absolute right-[18%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent" />
+
+        {/* Small data labels */}
         <motion.div
+          animate={{
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+          }}
           className="
             absolute
-            bottom-[30%]
-            right-[28%]
-            w-1
-            h-1
-            rounded-full
-            bg-[#C99E5D]
-            shadow-[0_0_10px_#C99E5D]
+            right-[25%]
+            top-[25%]
+            text-[8px]
+            tracking-[0.3em]
+            text-[#8C6D4F]
           "
+        >
+          AI_SYSTEM // ONLINE
+        </motion.div>
+
+        <motion.div
           animate={{
-            y: [-5, 10, -5],
-            opacity: [0.25, 0.8, 0.25],
+            opacity: [0.15, 0.45, 0.15],
           }}
           transition={{
-            duration: 4.5,
+            duration: 7,
             repeat: Infinity,
-            ease: 'easeInOut',
+            delay: 1,
           }}
-        />
-
-        {/* =====================================================
-            SCAN LINE
-        ===================================================== */}
-        <motion.div
           className="
             absolute
-            left-0
-            right-0
-            h-px
-            bg-gradient-to-r
-            from-transparent
-            via-[#D4AF37]/10
-            to-transparent
+            right-[12%]
+            bottom-[20%]
+            text-[7px]
+            tracking-[0.3em]
+            text-[#75675B]
           "
-          animate={{
-            top: ['20%', '80%', '20%'],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+        >
+          RAG / ML / WEB
+        </motion.div>
 
-        {/* Left cinematic fade */}
+        {/* Left readability gradient */}
         <div
           className="
             absolute
-            inset-y-0
-            left-0
-            w-[55%]
+            inset-0
             bg-gradient-to-r
             from-black
-            via-black/95
-            to-transparent
+            via-black/90
+            via-[55%]
+            to-black/30
+          "
+        />
+
+        {/* Cinematic vignette */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.78)_100%)]
           "
         />
 
@@ -384,129 +459,65 @@ export const HeroSection: React.FC = () => {
             bottom-0
             left-0
             right-0
-            h-32
+            h-36
             bg-gradient-to-t
             from-black
             to-transparent
           "
         />
 
-        {/* =====================================================
-            WATERMARK
-        ===================================================== */}
-        <div
-          className="
-            absolute
-            bottom-6
-            right-6
-            lg:bottom-10
-            lg:right-12
-            flex
-            items-center
-            justify-center
-            z-10
-          "
-        >
-          <div className="relative flex items-center justify-center">
-
-            <div
-              className="
-                absolute
-                w-36
-                h-36
-                bg-black/85
-                rounded-full
-                blur-xl
-              "
-            />
-
-            <motion.div
-              animate={{
-                y: [-3, 3, -3],
-                scale: [1, 1.03, 1],
-              }}
-              transition={{
-                duration: 4.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="
-                relative
-                flex
-                items-center
-                justify-center
-              "
-            >
-              <img
-                src={watermarkImg}
-                alt="Insignia"
-                className="
-                  w-28
-                  h-28
-                  lg:w-32
-                  lg:h-32
-                  object-contain
-                  drop-shadow-[0_0_15px_rgba(212,175,55,0.25)]
-                "
-              />
-            </motion.div>
-
-          </div>
-        </div>
       </div>
 
-      {/* =========================================================
-          3. CONTENT LAYER
-      ========================================================= */}
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
+
       <div
         className="
           relative
           z-10
           flex
-          flex-col
-          justify-between
-          h-full
+          min-h-screen
           w-full
+          flex-col
           px-6
-          sm:px-12
-          lg:px-16
+          sm:px-10
+          lg:px-14
+          xl:px-16
           pt-6
-          pb-8
-          pointer-events-none
+          pb-7
         "
       >
 
-        {/* =====================================================
+        {/* =================================================
             NAVIGATION
-        ===================================================== */}
+        ================================================== */}
+
         <header
           className="
-            relative
-            flex
-            items-center
-            justify-between
+            grid
             w-full
-            pointer-events-auto
-            gap-6
+            grid-cols-[auto_minmax(0,1fr)_auto]
+            items-center
+            gap-4
+            xl:gap-7
           "
         >
 
-          {/* LOGO */}
+          {/* Logo */}
           <a
             href="#"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             className="
-              text-xs
-              sm:text-sm
-              font-semibold
-              tracking-[0.35em]
-              uppercase
-              text-[#EAD8C7]
-              hover:text-[#FFF5EB]
-              transition-colors
-              whitespace-nowrap
               shrink-0
+              whitespace-nowrap
+              text-xs
+              font-semibold
+              tracking-[0.30em]
+              text-[#EAD8C7]
+              transition-colors
+              duration-300
+              hover:text-white
+              sm:text-sm
             "
             style={{
               fontFamily: "'Montserrat', sans-serif",
@@ -515,47 +526,42 @@ export const HeroSection: React.FC = () => {
             HARSHINI P.
           </a>
 
-          {/* =================================================
-              CENTER NAVIGATION
-          ================================================= */}
+          {/* Main navigation */}
           <nav
             className="
               hidden
-              lg:flex
+              min-w-0
               items-center
               justify-center
-              gap-5
-              xl:gap-7
-              flex-1
-              min-w-0
+              gap-3
+              lg:flex
+              xl:gap-5
+              2xl:gap-7
             "
             style={{
               fontFamily: "'Montserrat', sans-serif",
             }}
           >
-
-            {/* Main Links */}
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 className="
-                  relative
                   group
-                  py-1
-                  text-[9px]
-                  xl:text-[10px]
-                  tracking-[0.20em]
-                  xl:tracking-[0.24em]
+                  relative
+                  shrink-0
+                  whitespace-nowrap
+                  py-2
+                  text-[8px]
                   font-light
-                  uppercase
-                  text-[#C4B5A5]
-                  hover:text-[#FFF5EB]
+                  tracking-[0.16em]
+                  text-[#AFA095]
                   transition-colors
                   duration-300
-                  whitespace-nowrap
+                  hover:text-[#FFF5EB]
+                  xl:text-[9px]
+                  xl:tracking-[0.19em]
+                  2xl:text-[10px]
                 "
               >
                 {item.name}
@@ -565,8 +571,8 @@ export const HeroSection: React.FC = () => {
                     absolute
                     bottom-0
                     left-0
-                    w-0
                     h-px
+                    w-0
                     bg-[#D4AF37]
                     transition-all
                     duration-300
@@ -575,240 +581,145 @@ export const HeroSection: React.FC = () => {
                 />
               </a>
             ))}
-
-            {/* Divider */}
-            <span
-              className="
-                w-px
-                h-4
-                bg-[#8C6D4F]/50
-                shrink-0
-                mx-1
-              "
-            />
-
-            {/* =================================================
-                GITHUB
-            ================================================= */}
-            <a
-              href="https://github.com/harshini301007"
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="
-                relative
-                group
-                py-1
-                text-[9px]
-                xl:text-[10px]
-                tracking-[0.18em]
-                xl:tracking-[0.20em]
-                font-medium
-                uppercase
-                text-[#C4B5A5]
-                hover:text-[#F7E7C4]
-                transition-colors
-                duration-300
-                whitespace-nowrap
-                shrink-0
-              "
-            >
-              GITHUB
-              <span className="ml-1 text-[#D4AF37]">↗</span>
-
-              <span
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  w-0
-                  h-px
-                  bg-[#D4AF37]
-                  transition-all
-                  duration-300
-                  group-hover:w-full
-                "
-              />
-            </a>
-
-            {/* =================================================
-                LINKEDIN
-            ================================================= */}
-            <a
-              href="https://www.linkedin.com/in/harshini-poornachandran"
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="
-                relative
-                group
-                py-1
-                text-[9px]
-                xl:text-[10px]
-                tracking-[0.18em]
-                xl:tracking-[0.20em]
-                font-medium
-                uppercase
-                text-[#C4B5A5]
-                hover:text-[#F7E7C4]
-                transition-colors
-                duration-300
-                whitespace-nowrap
-                shrink-0
-              "
-            >
-              LINKEDIN
-              <span className="ml-1 text-[#D4AF37]">↗</span>
-
-              <span
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  w-0
-                  h-px
-                  bg-[#D4AF37]
-                  transition-all
-                  duration-300
-                  group-hover:w-full
-                "
-              />
-            </a>
           </nav>
 
-          {/* Social Links */}
-<div className="hidden lg:flex items-center gap-3 ml-2">
-  {socialLinks.map((social) => (
-    <a
-      key={social.name}
-      href={social.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative px-4 py-2 border border-[#8C6D4F]/30 hover:border-[#D4AF37]/70 transition-all duration-300"
-      aria-label={social.name}
-    >
-      <span
-        className="text-[10px] tracking-[0.18em] text-[#A8988B] group-hover:text-[#F7E7C4] transition-colors"
-        style={{ fontFamily: "'Montserrat', sans-serif" }}
-      >
-        {social.name} ↗
-      </span>
-
-      <span className="absolute inset-0 bg-[#D4AF37]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </a>
-  ))}
-</div>
-
           {/* =================================================
-              LET'S TALK
-          ================================================= */}
-          <a
-            href="#contact"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+              RIGHT SIDE
+          ================================================== */}
+
+          <div
             className="
-              group
               flex
-              items-center
-              gap-2
-              text-[9px]
-              lg:text-[10px]
-              tracking-[0.18em]
-              lg:tracking-[0.22em]
-              font-light
-              uppercase
-              py-2
-              px-3
-              lg:px-4
-              border
-              border-[#8C6D4F]/50
-              hover:border-[#D4AF37]
-              text-[#EAD8C7]
-              hover:text-[#FFF5EB]
-              transition-all
-              duration-300
-              backdrop-blur-sm
-              whitespace-nowrap
               shrink-0
+              items-center
+              justify-end
+              gap-2
             "
             style={{
               fontFamily: "'Montserrat', sans-serif",
             }}
           >
-            <span>LET&apos;S TALK</span>
 
-            <span
+            {/* GitHub + LinkedIn */}
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  hidden
+                  items-center
+                  gap-1
+                  whitespace-nowrap
+                  border
+                  border-[#8C6D4F]/35
+                  px-2
+                  py-2
+                  text-[7px]
+                  font-light
+                  tracking-[0.10em]
+                  text-[#BFAE9E]
+                  transition-all
+                  duration-300
+                  hover:border-[#D4AF37]
+                  hover:text-[#F7E7C4]
+                  xl:flex
+                  xl:px-2.5
+                  xl:text-[8px]
+                  2xl:text-[9px]
+                "
+              >
+                <span>{social.name}</span>
+                <span className="text-[#D4AF37]">↗</span>
+              </a>
+            ))}
+
+            {/* Let's Talk */}
+            <a
+              href="#contact"
               className="
-                text-xs
-                transition-transform
+                flex
+                shrink-0
+                items-center
+                gap-1.5
+                whitespace-nowrap
+                border
+                border-[#8C6D4F]/50
+                px-3
+                py-2
+                text-[8px]
+                font-light
+                tracking-[0.14em]
+                text-[#EAD8C7]
+                transition-all
                 duration-300
-                group-hover:translate-x-0.5
-                group-hover:-translate-y-0.5
+                hover:border-[#D4AF37]
+                hover:text-[#FFF5EB]
+                sm:px-3.5
+                lg:text-[9px]
+                xl:px-4
+                xl:text-[10px]
               "
             >
-              ↗
-            </span>
-          </a>
+              <span>LET&apos;S TALK</span>
+              <span className="text-[#D4AF37]">↗</span>
+            </a>
+
+          </div>
 
         </header>
 
-        {/* =====================================================
-            MAIN HERO CONTENT
-        ===================================================== */}
+        {/* =================================================
+            HERO CONTENT
+        ================================================== */}
+
         <div
           className="
             relative
             flex
+            flex-1
             flex-col
-            md:flex-row
-            items-center
-            justify-between
-            w-full
-            pt-4
-            pb-2
-            my-auto
+            justify-center
+            py-12
+            md:py-10
+            lg:flex-row
+            lg:items-center
+            lg:justify-between
+            lg:py-4
           "
         >
 
           {/* =================================================
               LEFT CONTENT
-          ================================================= */}
+          ================================================== */}
+
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="
-              max-w-sm
-              sm:max-w-md
-              md:max-w-lg
-              lg:max-w-[37rem]
-              xl:max-w-[40rem]
-              pointer-events-auto
               z-20
+              w-full
+              max-w-[40rem]
             "
           >
 
-            {/* HEADLINE */}
+            {/* Main headline */}
             <motion.div
               variants={fadeUpVariants}
-              className="
-                relative
-                mb-3.5
-                select-none
-              "
+              className="mb-4 select-none"
             >
               <h1
                 className="
-                  text-6xl
-                  sm:text-7xl
-                  md:text-8xl
+                  text-[4.4rem]
+                  uppercase
+                  leading-[0.82]
+                  tracking-tight
+                  sm:text-[5.8rem]
+                  md:text-[7rem]
                   lg:text-[7.2rem]
                   xl:text-[7.8rem]
-                  tracking-tight
-                  uppercase
-                  leading-[0.83]
                 "
                 style={{
                   fontFamily: "'Bebas Neue', sans-serif",
@@ -818,12 +729,12 @@ export const HeroSection: React.FC = () => {
                 <span
                   className="
                     block
-                    text-transparent
-                    bg-clip-text
                     bg-gradient-to-b
-                    from-[#FFFFFF]
+                    from-white
                     via-[#D5CBC0]
                     to-[#605448]
+                    bg-clip-text
+                    text-transparent
                     drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)]
                   "
                 >
@@ -833,12 +744,12 @@ export const HeroSection: React.FC = () => {
                 <span
                   className="
                     block
-                    text-transparent
-                    bg-clip-text
                     bg-gradient-to-b
                     from-[#F7E7C4]
                     via-[#C99E5D]
                     to-[#543B1A]
+                    bg-clip-text
+                    text-transparent
                     drop-shadow-[0_8px_25px_rgba(201,158,93,0.35)]
                   "
                 >
@@ -848,12 +759,12 @@ export const HeroSection: React.FC = () => {
                 <span
                   className="
                     block
-                    text-transparent
-                    bg-clip-text
                     bg-gradient-to-b
                     from-[#DFBE8A]
                     via-[#9B7640]
                     to-[#342410]
+                    bg-clip-text
+                    text-transparent
                     drop-shadow-[0_10px_30px_rgba(155,118,64,0.4)]
                   "
                 >
@@ -863,46 +774,55 @@ export const HeroSection: React.FC = () => {
               </h1>
             </motion.div>
 
-            {/* SUBTITLE */}
+            {/* Subtitle */}
             <motion.div
               variants={fadeUpVariants}
               className="mb-4"
             >
               <p
                 className="
-                  text-[10px]
-                  sm:text-[11px]
-                  md:text-xs
+                  text-[8px]
                   font-normal
-                  tracking-[0.28em]
                   uppercase
+                  tracking-[0.20em]
                   text-[#C4B29E]
+                  sm:text-[10px]
+                  md:text-xs
+                  md:tracking-[0.25em]
                 "
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
                 }}
               >
                 AI & FULL STACK DEVELOPER
-                <span className="text-[#8C6D4F] mx-1">•</span>
+
+                <span className="mx-1 text-[#8C6D4F]">
+                  •
+                </span>
+
                 WEB DEVELOPER
-                <span className="text-[#8C6D4F] mx-1">•</span>
+
+                <span className="mx-1 text-[#8C6D4F]">
+                  •
+                </span>
+
                 PROBLEM SOLVER
               </p>
             </motion.div>
 
-            {/* DESCRIPTION */}
+            {/* Description */}
             <motion.div
               variants={fadeUpVariants}
               className="
+                mb-6
+                max-w-lg
                 text-xs
-                sm:text-sm
-                md:text-[13.5px]
                 font-light
-                text-[#A8988B]
                 leading-[1.8]
                 tracking-wide
-                max-w-lg
-                mb-6
+                text-[#A8988B]
+                sm:text-sm
+                md:text-[13px]
               "
               style={{
                 fontFamily: "'Montserrat', sans-serif",
@@ -917,161 +837,172 @@ export const HeroSection: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* CTA BUTTONS */}
+            {/* CTA Buttons */}
             <motion.div
               variants={fadeUpVariants}
               className="
                 flex
                 flex-row
                 items-center
-                gap-4
-                sm:gap-6
+                gap-3
+                sm:gap-5
               "
               style={{
                 fontFamily: "'Montserrat', sans-serif",
               }}
             >
 
-              {/* EXPLORE */}
+              {/* Explore */}
               <motion.a
                 href="#work"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 whileHover={{
-                  scale: 1.02,
+                  scale: 1.025,
+                }}
+                whileTap={{
+                  scale: 0.98,
                 }}
                 className="
                   relative
                   inline-flex
                   items-center
-                  space-x-3
-                  px-6
-                  sm:px-7
-                  py-3.5
+                  gap-2
+                  whitespace-nowrap
                   border
                   border-[#8C6D4F]
                   bg-[#120F0C]/80
-                  hover:border-[#D4AF37]
-                  text-[#EAD8C7]
-                  hover:text-[#FFF5EB]
-                  text-[11px]
+                  px-4
+                  py-3
+                  text-[9px]
                   font-medium
-                  tracking-[0.24em]
                   uppercase
+                  tracking-[0.16em]
+                  text-[#EAD8C7]
+                  shadow-[0_0_25px_rgba(212,175,55,0.14)]
                   transition-all
                   duration-300
-                  shadow-[0_0_25px_rgba(212,175,55,0.18)]
+                  hover:border-[#D4AF37]
+                  hover:text-[#FFF5EB]
+                  sm:px-6
+                  sm:py-3.5
+                  sm:text-[10px]
+                  md:text-[11px]
                 "
               >
-                <div
+                <span>EXPLORE MY WORK</span>
+                <span className="text-[#D4AF37]">↗</span>
+
+                <span
                   className="
                     absolute
-                    top-0
                     left-0
-                    w-full
+                    top-0
                     h-px
+                    w-full
                     bg-gradient-to-r
                     from-transparent
-                    via-[#E8D7C5]/40
+                    via-[#E8D7C5]/50
                     to-transparent
-                    pointer-events-none
                   "
                 />
-
-                <span>EXPLORE MY WORK</span>
-                <span>↗</span>
               </motion.a>
 
-              {/* RESUME */}
+              {/* Resume */}
               <motion.a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 whileHover={{
-                  scale: 1.02,
+                  scale: 1.025,
+                }}
+                whileTap={{
+                  scale: 0.98,
                 }}
                 className="
-                  relative
                   inline-flex
                   items-center
-                  space-x-2
-                  px-6
-                  sm:px-7
-                  py-3.5
+                  gap-2
+                  whitespace-nowrap
                   border
                   border-[#8C6D4F]/40
-                  hover:border-[#8C6D4F]
-                  text-[#BFA895]
-                  hover:text-[#EAD8C7]
-                  text-[11px]
+                  px-4
+                  py-3
+                  text-[9px]
                   font-medium
-                  tracking-[0.24em]
                   uppercase
+                  tracking-[0.16em]
+                  text-[#BFA895]
                   transition-all
                   duration-300
+                  hover:border-[#C99E5D]
+                  hover:text-[#EAD8C7]
+                  sm:px-6
+                  sm:py-3.5
+                  sm:text-[10px]
+                  md:text-[11px]
                 "
               >
                 <span>DOWNLOAD RESUME</span>
-                <span>↓</span>
+                <span className="text-[#D4AF37]">↓</span>
               </motion.a>
 
             </motion.div>
+
           </motion.div>
 
           {/* =================================================
-              RIGHT QUOTE
-          ================================================= */}
+              RIGHT SIDE — CINEMATIC QUOTE
+          ================================================== */}
+
           <motion.div
-            initial={{
-              opacity: 0,
-              x: 20,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            transition={{
-              delay: 0.8,
-              duration: 1.2,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+            variants={rightPanelVariants}
+            initial="hidden"
+            animate="visible"
             className="
-              hidden
-              lg:flex
-              flex-col
-              items-start
-              pointer-events-auto
-              pr-24
-              xl:pr-36
-              mr-4
               z-20
+              mt-14
+              hidden
               select-none
+              lg:flex
+              lg:flex-col
+              lg:items-start
+              lg:pr-8
+              xl:pr-16
             "
           >
 
-            <span
+            {/* Label */}
+            <div
               className="
-                text-xl
-                text-[#C99E5D]
-                leading-none
-                font-serif
-                mb-2
+                mb-5
+                flex
+                items-center
+                gap-2
+                text-[7px]
+                tracking-[0.28em]
+                text-[#8C6D4F]
               "
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+              }}
             >
+              <span className="h-px w-6 bg-[#D4AF37]/50" />
+              <span>AI / CODE / DESIGN</span>
+            </div>
+
+            {/* Quote */}
+            <span className="mb-2 font-serif text-xl leading-none text-[#C99E5D]">
               “
             </span>
 
             <div
               className="
-                text-[9.5px]
-                font-medium
-                tracking-[0.24em]
-                uppercase
-                text-[#E0D3C5]
-                space-y-1
                 mb-3
+                space-y-1
+                text-[9px]
+                font-medium
+                uppercase
+                tracking-[0.22em]
+                text-[#E0D3C5]
               "
               style={{
                 fontFamily: "'Montserrat', sans-serif",
@@ -1081,40 +1012,134 @@ export const HeroSection: React.FC = () => {
               <p>BUILD FOR IMPACT.</p>
             </div>
 
-            <div
+            {/* Accent */}
+            <motion.div
+              animate={{
+                width: ['5rem', '8rem', '5rem'],
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
               className="
-                w-28
+                mb-3
                 h-px
                 bg-gradient-to-r
                 from-[#D4AF37]
                 via-[#E8D7C5]/70
                 to-transparent
                 shadow-[0_0_8px_rgba(212,175,55,0.4)]
-                mb-2
               "
             />
 
+            {/* Signature */}
             <div
               className="
-                text-[2.2rem]
-                text-[#D8AB64]
-                font-normal
+                text-[2.1rem]
                 leading-none
+                text-[#D8AB64]
               "
               style={{
-                fontFamily:
-                  "'Herr Von Muellerhoff', 'Allura', cursive",
-                letterSpacing: '0.04em',
+                fontFamily: "'Herr Von Muellerhoff', 'Allura', cursive",
               }}
             >
               Harshini P
+            </div>
+
+            {/* Status */}
+            <div
+              className="
+                mt-5
+                flex
+                items-center
+                gap-2
+                text-[7px]
+                uppercase
+                tracking-[0.25em]
+                text-[#75675B]
+              "
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+              }}
+            >
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  rounded-full
+                  bg-[#D4AF37]
+                  shadow-[0_0_8px_#D4AF37]
+                "
+              />
+
+              <span>BUILDING DIGITAL SYSTEMS</span>
             </div>
 
           </motion.div>
 
         </div>
 
-        <div className="h-2" />
+        {/* =================================================
+            WATERMARK
+        ================================================== */}
+
+        <div
+          className="
+            pointer-events-none
+            absolute
+            bottom-6
+            right-6
+            z-10
+            hidden
+            items-center
+            justify-center
+            lg:flex
+            lg:right-10
+          "
+        >
+          <div className="relative flex items-center justify-center">
+
+            <div
+              className="
+                absolute
+                h-36
+                w-36
+                rounded-full
+                bg-black/85
+                blur-xl
+              "
+            />
+
+            <motion.div
+              animate={{
+                y: [-3, 3, -3],
+                scale: [1, 1.035, 1],
+              }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="relative flex items-center justify-center"
+            >
+              <img
+                src={watermarkImg}
+                alt="Harshini insignia"
+                className="
+                  h-24
+                  w-24
+                  object-contain
+                  drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]
+                  lg:h-28
+                  lg:w-28
+                "
+              />
+            </motion.div>
+
+          </div>
+        </div>
 
       </div>
     </section>
